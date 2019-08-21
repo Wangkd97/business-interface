@@ -60,4 +60,29 @@ public interface UserInfoMapper {
     UserInfo findByUsernameAndPassword(@Param("user") UserInfo userInfo);
 
     List<UserInfo> findByFenYe(@Param("pageNum") int pageNum,@Param("pageSize") int pageSize);
+
+
+    /***
+     * copy
+     */
+    public int findByUserName(String username);
+
+    public UserInfo findByUserNameAndPassword(@Param("username") String username, @Param("password") String password);
+
+    //public List<UserInfo> findByRole(int role);
+    //按照邮箱查找
+    public int findByEmail(String email);
+
+    //根据用户名查询密保问题
+    public String findQuestionByUaername(@Param("username") String username);
+
+    //校验校验密保问题答案
+    public int forgetPasswordCheckAnswer(@Param("username") String username, @Param("question") String question, @Param("answer") String answer);
+
+    //修改用户密码
+    public int  updatePassword(@Param("username") String username,@Param("passwordNew") String passwordNew);
+
+    public int updateByUsername(UserInfo record);
+
+
 }

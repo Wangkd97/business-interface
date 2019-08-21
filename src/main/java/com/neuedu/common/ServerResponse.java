@@ -36,6 +36,10 @@ public class ServerResponse<T> {
      * 判断接口是否成功调用
      * */
     @JsonIgnore
+    public boolean isSuccess(){
+        return this.status==0;
+    }
+    @JsonIgnore
     public  boolean isSucess(){
         return this.status==0;
     }
@@ -51,9 +55,44 @@ public class ServerResponse<T> {
     public  static <T> ServerResponse<T> createServerResponseBySucess(String msg,T data){
         return new ServerResponse<>(0,msg,data);
     }
+    public  static <T> ServerResponse<T> createServerResponseBySucess(int status,String msg){
+        return new ServerResponse<>(status,msg);
+    }
     public  static <T> ServerResponse<T> createServerResponseByFail(int status,String msg){
         return new ServerResponse<>(status,msg);
     }
+
+    public  static<T>  ServerResponse<T> createServerResponseBySucces(){
+        return new ServerResponse<>(0);
+    }
+
+    public  static<T>  ServerResponse<T> createServerResponseBySucces(T data){
+        return new ServerResponse<>(0,data);
+    }
+
+    public  static<T>  ServerResponse<T> createServerResponseBySuccesas(String msg){
+        return new ServerResponse<>(0,msg);
+    }
+
+    public  static<T>  ServerResponse<T> createServerResponseBySucces(String msg,T data){
+        return new ServerResponse<>(0,msg,data);
+    }
+
+
+    public  static<T>  ServerResponse<T> createServerResponseByFail(String msg){
+        return new ServerResponse<>(1,msg);
+    }
+
+
+    @Override
+    public String toString() {
+        return "ServerResponse{" +
+                "status=" + status +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
 
 
     public int getStatus() {

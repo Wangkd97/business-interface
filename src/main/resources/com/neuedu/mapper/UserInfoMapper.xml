@@ -75,14 +75,10 @@
     update_time
     from neuedu_user
   </select>
-
-
-
   <select id="exsitsUsername" parameterType="string" resultType="int">
 
     select count(*) from neuedu_user where username=#{username}
   </select>
-
   <select id="findByUsernameAndPassword" parameterType="com.neuedu.pojo.UserInfo"
   resultMap="BaseResultMap">
 
@@ -90,7 +86,6 @@
     update_time from neuedu_user where username=#{user.username} and password=#{user.password}
 
   </select>
-
   <select id="findByFenYe" parameterType="map"
           resultMap="BaseResultMap">
 
@@ -99,4 +94,35 @@
 
   </select>
 
+  <!--copy-->
+  <select id="findByUserName" parameterType="string" resultType="int">
+    SELECT COUNT(*) FROM neuedu_user WHERE username=#{username}
+  </select>
+
+  <select id="findByEmail" parameterType="string" resultType="int">
+    SELECT COUNT(*) FROM neuedu_user WHERE email=#{email}
+  </select>
+
+  <select id="findByRole" parameterType="int" resultType="com.neuedu.pojo.UserInfo">
+    select * from neuedu_user where role=#{0}
+  </select>
+
+  <select id="findQuestionByUaername" parameterType="string" resultType="string">
+    select question from neuedu_user where username=#{username}
+  </select>
+
+  <select id="forgetPasswordCheckAnswer" parameterType="map" resultType="int">
+    select count(*) from neuedu_user where username=#{username} and question=#{question} AND answer=#{answer}
+  </select>
+
+  <!--更新密码-->
+  <update id="updatePassword" parameterType="map" >
+    update neuedu_user
+    <set>
+      <if test="passwordNew!=null">
+        password = #{passwordNew,jdbcType=VARCHAR}, update_time = now()
+      </if>
+    </set>
+    where username = #{username,jdbcType=INTEGER}
+  </update>
 </mapper>
