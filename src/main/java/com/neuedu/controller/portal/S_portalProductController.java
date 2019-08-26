@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 //Product 前台接口
 @RestController
-@RequestMapping("/portal/product")
+@RequestMapping("/portal/product/")
 public class S_portalProductController {
 
     @Autowired

@@ -20,6 +20,7 @@ import com.alipay.demo.trade.service.impl.AlipayMonitorServiceImpl;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 import com.alipay.demo.trade.service.impl.AlipayTradeWithHBServiceImpl;
 import com.alipay.demo.trade.utils.Utils;
+import com.alipay.demo.trade.utils.ZxingUtils;
 import org.apache.commons.lang.StringUtils;
 
 import org.apache.commons.logging.Log;
@@ -420,7 +421,8 @@ public class Main {
             .setUndiscountableAmount(undiscountableAmount).setSellerId(sellerId).setBody(body)
             .setOperatorId(operatorId).setStoreId(storeId).setExtendParams(extendParams)
             .setTimeoutExpress(timeoutExpress)
-            //                .setNotifyUrl("http://www.test-notify-url.com")//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
+                //           .setNotifyUrl("http://www.test-notify-url.com")
+                //支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
             .setGoodsDetailList(goodsDetailList);
 
         AlipayF2FPrecreateResult result = tradeService.tradePrecreate(builder);
@@ -432,10 +434,10 @@ public class Main {
                 dumpResponse(response);
 
                 // 需要修改为运行机器上的路径
-                String filePath = String.format("/Users/sudo/Desktop/qr-%s.png",
+                String filePath = String.format("d:/qrcode/qr-%s.png",
                     response.getOutTradeNo());
                 log.info("filePath:" + filePath);
-                //                ZxingUtils.getQRCodeImge(response.getQrCode(), 256, filePath);
+                                ZxingUtils.getQRCodeImge(response.getQrCode(), 256, filePath);
                 break;
 
             case FAILED:

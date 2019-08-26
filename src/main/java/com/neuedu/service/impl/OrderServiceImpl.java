@@ -756,7 +756,7 @@ public class OrderServiceImpl implements IOrderservice {
                     dumpResponse(response);
 
                     // 需要修改为运行机器上的路径
-                    String filePath = String.format("E:/实训视频/springMVC/upload/qr-%s.png",
+                    String filePath = String.format("d:/qrcode/qr-%s.png",
                             response.getOutTradeNo());
                     log.info("filePath:" + filePath);
                     ZxingUtils.getQRCodeImge(response.getQrCode(), 256, filePath);
