@@ -94,7 +94,7 @@
     select id, user_id, order_no, shipping_id, payment, payment_type, postage, status,
     payment_time, send_time, end_time, close_time, create_time, update_time
     from neuedu_order
-    WHERE user_id=#{userId}
+    WHERE user_id=#{userId} ORDER BY create_time DESC
     limit #{start},#{size}
   </select>
 

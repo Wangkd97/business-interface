@@ -17,7 +17,7 @@ public interface IOrderservice {
     public ServerResponse searchProductFromOrder(Integer userId, Long orderNo);
 
     //springboot 查看订单列表
-    public ServerResponse searchOrderList(Integer userId, Integer pageNum, Integer size);
+    public ServerResponse searchOrderList(Integer userId, Integer start, Integer size);
 
     //soringboot 查询某一订单详情
     public ServerResponse searchOrderMessage(Integer userId, Long orderNo);

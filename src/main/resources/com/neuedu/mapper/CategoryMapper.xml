@@ -91,4 +91,9 @@
     where parent_id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="findFatherCategory" resultMap="BaseResultMap"  >
+    select id, parent_id, name, status, sort_order, create_time, update_time,imgUrl
+    from neuedu_category
+    where parent_id = 0
+  </select>
 </mapper>

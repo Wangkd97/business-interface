@@ -6,6 +6,7 @@ import com.neuedu.consts.Const;
 import com.neuedu.pojo.UserInfo;
 import com.neuedu.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @RestController   //让返回值为字符串
 @RequestMapping("/user/")
+@CrossOrigin  //跨域注解
 public class CustomerController {
 
     @Autowired
@@ -45,7 +47,7 @@ public class CustomerController {
         if(userInfo1!=null){
             //登陆成功之后,放入session
             session.setAttribute(Const.CURRENT_USER,userInfo1);
-            return ServerResponse.createServerResponseBySucess("登录成功",userInfo);
+            return ServerResponse.createServerResponseBySucess("登录成功",userInfo1);
         }
         return ServerResponse.createServerResponseByFail(0,"登录失败");
     }

@@ -7,7 +7,7 @@ spring:
 
 img:
   local:
-    path:D://path
+    path:D://qrcode
 
 
 

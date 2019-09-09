@@ -20,6 +20,7 @@ public interface ICategoryService
     //根据id删除
     public int deleteByPrimaryKey(Integer id);
 
+    public List<Category> findFatherCategory();
 
 
     //springboot 获取品类子节点
@@ -30,4 +31,5 @@ public interface ICategoryService
     public  ServerResponse updateCategory(Integer categoryId, String catename);
     //springboot 查询所有子节点
     public  ServerResponse getAllChildCategory(Integer categoryId);
+
 }

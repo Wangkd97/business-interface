@@ -340,6 +340,11 @@ public class OrderServiceImpl implements IOrderservice {
         List<OrderViewObject>orderViewObjectList=Lists.newArrayList();
         for(Order order:orderList){
             List<OrderItem> orderItemList=orderItemMapper.findOrderItemsByOrderNo(order.getOrderNo());
+            for (Order i:orderList) {
+                System.out.println(i.getPayment()+"=========payment=====");
+
+            }
+
             OrderViewObject orderViewObject=createOrderVo(order,orderItemList,order.getShippingId());
             orderViewObjectList.add(orderViewObject);
         }
@@ -762,7 +767,7 @@ public class OrderServiceImpl implements IOrderservice {
                     ZxingUtils.getQRCodeImge(response.getQrCode(), 256, filePath);
                     Map map= Maps.newHashMap();
                     map.put("orderNo",order.getOrderNo());
-                    map.put("qrCode","http://localhost:8080/uploadpic/qr-"+response.getOutTradeNo()+".png");
+                    map.put("qrCode","127.0.0.1/qr-"+response.getOutTradeNo()+".png");
                     return ServerResponse.createServerResponseBySucces("预支付成功",map);
 
                 case FAILED:

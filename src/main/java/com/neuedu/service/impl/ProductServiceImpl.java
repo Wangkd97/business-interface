@@ -12,6 +12,7 @@ import com.neuedu.pojo.Product;
 import com.neuedu.service.ICategoryService;
 import com.neuedu.service.IProductService;
 import com.neuedu.utils.DateUtils;
+import com.neuedu.viewObject.ProductListViewObject;
 import com.neuedu.viewObject.ProductMessageViewObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,6 +84,27 @@ public class ProductServiceImpl implements IProductService {
         pageInfo.setProducts(productMapper.pageSearch(start));
         return pageInfo.getProducts();
     }
+
+    @Override
+    public List<ProductListViewObject> getNewProducts(int start, int size) {
+
+        return productMapper.getNewProducts(start,size);
+
+    }
+
+    @Override
+    public List<ProductListViewObject> getBannerProducts(int start,int size) {
+        return productMapper.getBannerProducts(start,size);
+    }
+
+    @Override
+    public List<ProductListViewObject> getHotProducts(int start,int size) {
+        return productMapper.getHotProducts(start,size);
+    }
+
+
+
+
 
 
 

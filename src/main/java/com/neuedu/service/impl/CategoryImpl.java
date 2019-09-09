@@ -53,6 +53,11 @@ public class CategoryImpl implements ICategoryService {
     }
 
     @Override
+    public List<Category> findFatherCategory() {
+        return categoryMapper.findFatherCategory();
+    }
+
+    @Override
     public ServerResponse getCategoryByParentId(int categoryId) {
         //参数非空校验
         if(categoryId==0){
@@ -154,5 +159,6 @@ public class CategoryImpl implements ICategoryService {
         }
         return categorySet;
     }
+
 
 }

@@ -4,6 +4,7 @@ import com.neuedu.common.ServerResponse;
 import com.neuedu.pojo.Cart;
 import com.neuedu.pojo.Category;
 import com.neuedu.pojo.Product;
+import com.neuedu.viewObject.ProductListViewObject;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -83,5 +84,10 @@ public interface ProductMapper {
                                          @Param("productName") String productName,
                                          @Param("orderBy") String orderBy);
 
-
+    List<ProductListViewObject> getNewProducts(@Param("start") Integer start,
+                                               @Param("size") Integer size);
+    List<ProductListViewObject> getBannerProducts(@Param("start") Integer start,
+                                    @Param("size") Integer size);
+    List <ProductListViewObject> getHotProducts(@Param("start") Integer start,
+                                  @Param("size") Integer size);
 }

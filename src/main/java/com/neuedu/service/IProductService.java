@@ -3,10 +3,12 @@ package com.neuedu.service;
 import com.neuedu.common.ServerResponse;
 import com.neuedu.pojo.Category;
 import com.neuedu.pojo.Product;
+import com.neuedu.viewObject.ProductListViewObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.PublicKey;
 import java.util.List;
 
 @Service
@@ -28,6 +30,15 @@ public interface IProductService {
     //分页查询
     public  List<Product> pageSearch(int start);
 
+    public List<ProductListViewObject> getNewProducts(int start,int size);
+    public List<ProductListViewObject> getBannerProducts(int start, int size);
+    public List<ProductListViewObject> getHotProducts(int start,int size);
+
+
+
+
+
+
 
 
 
@@ -47,4 +58,8 @@ public interface IProductService {
     public ServerResponse portalGetProductMessage(Integer productId);
     //springboot 前台的商品搜索
     public ServerResponse portalSerchaProduct(Integer categoryId, String productName, Integer pageNum, Integer size, String orderBy);
+
+
+
+
 }

@@ -8,15 +8,12 @@ import com.neuedu.pojo.UserPage;
 import com.neuedu.service.IUserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-
 @RestController   //让返回值为字符串
 @RequestMapping("/manage/user/")
+@CrossOrigin
 public class UserController {
 
     @Autowired

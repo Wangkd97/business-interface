@@ -50,4 +50,5 @@ public interface CategoryMapper {
     //springboot 查询子类别（平级）
     List<Category> findChildCategory(Integer categoryId);
 
+    List<Category> findFatherCategory();
 }

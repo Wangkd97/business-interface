@@ -204,4 +204,16 @@
       ORDER BY #{orderBy}
     </if>
   </select>
+
+  <select id="getNewProducts" parameterType="map" resultMap="BaseResultMap">
+    select * from neuedu_product where is_new=1 limit #{start},#{size}
+  </select>
+  <select id="getBannerProducts" parameterType="map" resultMap="BaseResultMap">
+    select * from neuedu_product where is_banner=1 limit #{start},#{size}
+  </select>
+  <select id="getHotProducts" parameterType="map" resultMap="BaseResultMap">
+    select * from neuedu_product where is_hot=1 limit #{start},#{size}
+  </select>
+
+
 </mapper>
