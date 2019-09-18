@@ -111,4 +111,11 @@
     from neuedu_order
     WHERE order_no=#{orderNo}
   </select>
+  <update id="alterAddress" parameterType="map" >
+    UPDATE neuedu_order SET shipping_id=#{shippingId} where order_no=#{orderNo} and user_id=#{userID}
+  </update>
+  <select id="findMainOrder" parameterType="long" resultMap="BaseResultMap">
+
+    select * from neuedu_order_item where order_no=#{orderNo}
+  </select>
 </mapper>

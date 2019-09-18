@@ -33,4 +33,6 @@ public interface IOrderservice {
 
     //springboot 查看支付状态
     public ServerResponse searPayStatus(Long orderNo);
+    public ServerResponse alterAddress(Integer userId,Long orderNo,Integer shippingId);
+    public ServerResponse findMainOrder(Long orderNo);
 }

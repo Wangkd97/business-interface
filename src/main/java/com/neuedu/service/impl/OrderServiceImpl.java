@@ -62,6 +62,8 @@ public class OrderServiceImpl implements IOrderservice {
     @Autowired
     PayInfoMapper payInfoMapper;
 
+
+
     //将购物车的商品明细转化为订单明细
     private ServerResponse getCartOrderItem(Integer userId,List<Cart> cartList){
         if(cartList==null||cartList.size()==0){
@@ -99,6 +101,7 @@ public class OrderServiceImpl implements IOrderservice {
     private Order DancreateOrder(Integer userId, Integer shippingId, BigDecimal ordertotalPrice){
         //0,已取消，10 未支付 20 已付款 40 已经发货 50 交易成功  60 交易关闭
         Order order=new Order();
+        order.setUserId(userId);
         order.setOrderNo(generateOrderNo());
         order.setShippingId(shippingId);
         order.setStatus(10);
@@ -217,6 +220,28 @@ public class OrderServiceImpl implements IOrderservice {
             orderItemViewObject.setProductName(orderItem.getProductName());
         }
         return orderItemViewObject;
+    }
+
+    @Override
+    public ServerResponse alterAddress(Integer userId,Long orderNo,Integer shippingId){
+        if (userId==null||orderNo==null||shippingId==null){
+            return ServerResponse.createServerResponseByFail("参数不能为空");
+        }
+        int msg=orderMapper.alterAddress(userId,orderNo,shippingId);
+        if (msg==1){
+            return ServerResponse.createServerResponseBySucess("修改成功");
+        }
+        return ServerResponse.createServerResponseByFail("修改失败");
+    }
+
+    @Override
+    public ServerResponse findMainOrder(Long orderNo) {
+        List<OrderItem> list = orderMapper.findMainOrder(orderNo);
+        for (OrderItem item:list) {
+            System.out.println(item.getOrderNo()+"=======bianhao=====");
+            System.out.println(item.getProductName()+"====shangpin migncheng=====");
+        }
+        return ServerResponse.createServerResponseBySucess("成功",list);
     }
 
     @Override
@@ -749,7 +774,7 @@ public class OrderServiceImpl implements IOrderservice {
                     .setUndiscountableAmount(undiscountableAmount).setSellerId(sellerId).setBody(body)
                     .setOperatorId(operatorId).setStoreId(storeId).setExtendParams(extendParams)
                     .setTimeoutExpress(timeoutExpress)
-                    .setNotifyUrl("http://fe82xu.natappfree.cc/portal/order/alipayCallBack")//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
+                    .setNotifyUrl("http://9i9kiz.natappfree.cc/portal/order/alipayCallBack")//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
                     .setGoodsDetailList(goodsDetailList);
 
             AlipayF2FPrecreateResult result = tradeService.tradePrecreate(builder);

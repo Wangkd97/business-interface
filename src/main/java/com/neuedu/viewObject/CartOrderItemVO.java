@@ -1,11 +1,23 @@
 package com.neuedu.viewObject;
 
 
+import com.neuedu.pojo.OrderItem;
+
 import java.math.BigDecimal;
 import java.util.List;
 
 public class CartOrderItemVO {
     private List<OrderItemViewObject> orderItemViewObjectList;
+    private List<OrderItem> oderItem;
+
+    public List<OrderItem> getOderItem() {
+        return oderItem;
+    }
+
+    public void setOderItem(List<OrderItem> oderItem) {
+        this.oderItem = oderItem;
+    }
+
     private String imageHost;
     private BigDecimal totalPrice;
 

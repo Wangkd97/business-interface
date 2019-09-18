@@ -6,9 +6,13 @@ import com.alipay.demo.trade.config.Configs;
 import com.google.common.collect.Maps;
 import com.neuedu.common.Const;
 import com.neuedu.common.ServerResponse;
+import com.neuedu.pojo.OrderItem;
 import com.neuedu.pojo.UserInfo;
+import com.neuedu.service.IOrderItemService;
 import com.neuedu.service.IOrderservice;
 
+import com.neuedu.utils.BigDecimalUtils;
+import com.neuedu.viewObject.CartOrderItemVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,6 +30,8 @@ import java.util.Map;
 public class S_OrderController {
     @Autowired
     IOrderservice iOrderservice;
+    @Autowired
+    IOrderItemService iOrderItemservice;
     //创建订单
     @RequestMapping("createOrder")
     public ServerResponse createOrder (HttpSession session,Integer shippingId){
@@ -135,5 +143,32 @@ public class S_OrderController {
             return ServerResponse.createServerResponseByFail("请您先进行登录");
         }
         return iOrderservice.searPayStatus(orderNo);
+    }
+
+    @RequestMapping("alterAddress")
+    public ServerResponse alterAddress(HttpSession session,Integer shippingId,Long orderNo){
+        UserInfo userInfo = (UserInfo) session.getAttribute(Const.CURRENTUSER);
+        if(userInfo==null){
+            return ServerResponse.createServerResponseByFail("请您先进行登录");
+        }
+        return iOrderservice.alterAddress(userInfo.getId(),orderNo,shippingId);
+    }
+    @RequestMapping("findMainOrder")
+    public ServerResponse findMainOrder(Long orderNo){
+
+        List<OrderItem> list =iOrderItemservice.findOrderItemsByOrderNo(orderNo);
+        BigDecimal total = getOrderPrice(list);
+        CartOrderItemVO cartOrderItemVO=new CartOrderItemVO();
+        cartOrderItemVO.setTotalPrice(total);
+        cartOrderItemVO.setOderItem(list);
+        return ServerResponse.createServerResponseBySucess("成功",cartOrderItemVO);
+    }
+
+    private BigDecimal getOrderPrice(List<OrderItem> orderItemList){
+        BigDecimal bigDecimal=new BigDecimal("0");
+        for(OrderItem orderItem:orderItemList){
+            bigDecimal= BigDecimalUtils.add(bigDecimal.doubleValue(),orderItem.getTotalPrice().doubleValue());
+        }
+        return bigDecimal;
     }
 }

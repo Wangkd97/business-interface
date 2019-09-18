@@ -44,6 +44,7 @@ public class CustomerController {
         userInfo.setPassword(password);
 
         UserInfo userInfo1=iUserInfoService.login(userInfo);
+        System.out.println(userInfo1.getId()+"=============userId======");
         if(userInfo1!=null){
             //登陆成功之后,放入session
             session.setAttribute(Const.CURRENT_USER,userInfo1);

@@ -1,6 +1,7 @@
 package com.neuedu.dao;
 
 import com.neuedu.pojo.Order;
+import com.neuedu.pojo.OrderItem;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -60,5 +61,7 @@ public interface OrderMapper {
    //根据订单号查询订单
     Order findBuOrderNo(Long orderNo);
 
-
+    int alterAddress(@Param("userId") Integer userId, @Param("orderNo") Long orderNo,
+                     @Param("shippingId") Integer shippingId);
+    List<OrderItem> findMainOrder( @Param("orderNo") Long orderNo);
 }
