@@ -61,12 +61,13 @@ public interface CartMapper {
     int deleteByUserIdAndProductIds(@Param("userId") Integer userId, @Param("productList") List<Integer> productList);
 
     //Springboot 操作购物车商品是否选中
-    int makeCheckedProduct(@Param("userId") Integer userId, @Param("productId") Integer productId, @Param("flag") int flag);
+    int makeCheckedProduct(@Param("userId") Integer userId, @Param("productId") Integer productId, @Param("flag") Integer flag);
 
     //Springboot 查询购物车中已经选中的商品
     List<Cart> searchCheckedProduct(@Param("userId") Integer userId);
 
     //Springboot 批量删除购物车中已经被选中的商品
     int deletehCheckedProduct(List<Cart> cartList);
-
+    int alterNum(Cart cart);
+    int deletePro(Cart cart);
 }

@@ -3,6 +3,7 @@ package com.neuedu.controller;
 
 import com.neuedu.common.Const;
 import com.neuedu.common.ServerResponse;
+import com.neuedu.pojo.Cart;
 import com.neuedu.pojo.UserInfo;
 import com.neuedu.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,5 +97,18 @@ public class S_CartController {
             return ServerResponse.createServerResponseByFail("请您先进行登录");
         }
         return iCartService.checkCartProduct(userInfo.getId(),null,0);
+    }
+
+    @RequestMapping("alterNum")
+    public ServerResponse alterNum(Cart cart, HttpSession session){
+        UserInfo userInfo = (UserInfo) session.getAttribute(Const.CURRENTUSER);
+        cart.setUserId(userInfo.getId());
+        return iCartService.alterNum(cart);
+    }
+    @RequestMapping("delete")
+    public ServerResponse delete(Cart cart,HttpSession session){
+        UserInfo userInfo = (UserInfo) session.getAttribute(Const.CURRENTUSER);
+        cart.setUserId(userInfo.getId());
+        return iCartService.deletePro(cart);
     }
 }

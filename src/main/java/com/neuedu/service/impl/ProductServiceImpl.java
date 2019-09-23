@@ -102,11 +102,39 @@ public class ProductServiceImpl implements IProductService {
         return productMapper.getHotProducts(start,size);
     }
 
+    @Override
+    public ServerResponse sousuo(String productName,Integer pageNum,Integer size) {
+        Set<Integer> integerSet= Sets.newHashSet();
+        //参数校验 categoryId和productName不能同时为空
 
-
-
-
-
+        //根据productName模糊查询
+        if(productName!=null&&!productName.equals("")){
+            productName="%"+productName+"%";
+        }
+        int start = (pageNum-1)*size;
+        System.out.println(productMapper+"========prom===========");
+        List<Product> productList=productMapper.sousuo(productName,pageNum,size);
+        //List<Product> productList=productMapper.portalSearchproduct(categoryId,integerSet,productName,orderBy,start,size);
+       /* List<ProductMessageViewObject> productMessageViewObjectList=Lists.newArrayList();
+        //转换VO
+        if(productList!=null&&productList.size()>0){
+            for (Product product:productList){
+                productMessageViewObjectList.add(productToVO(product));
+            }
+        }*/
+        List<Product> productList1=productMapper.sousuoAll(productName,pageNum,size);
+        int totalPage=productList1.size()/pageNum;
+        if(productList1.size()%pageNum!=0){
+            totalPage++;
+        }
+        //封装pageInfo
+        PageInfo pageInfo =new PageInfo();
+        pageInfo.setNumber(size);
+        pageInfo.setCurrentPage(pageNum);
+        pageInfo.setProducts(productList);
+        pageInfo.setTotalPage(totalPage);
+        return ServerResponse.createServerResponseBySucces("查询成功",pageInfo);
+    }
 
 
     /*springboot 增加或修改商品*/
@@ -353,6 +381,8 @@ public class ProductServiceImpl implements IProductService {
             productName="%"+productName+"%";
         }
         int start = (pageNum-1)*size;
+        System.out.println(productMapper+"========prom===========");
+
         List<Product> productList=productMapper.portalSearchproduct(categoryId,integerSet,productName,orderBy,start,size);
        /* List<ProductMessageViewObject> productMessageViewObjectList=Lists.newArrayList();
         //转换VO
@@ -374,5 +404,6 @@ public class ProductServiceImpl implements IProductService {
         pageInfo.setTotalPage(totalPage);
         return ServerResponse.createServerResponseBySucces("查询成功",pageInfo);
     }
+
 
 }

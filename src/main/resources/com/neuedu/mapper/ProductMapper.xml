@@ -215,5 +215,12 @@
     select * from neuedu_product where is_hot=1 limit #{start},#{size}
   </select>
 
+<select id="sousuo" parameterType="map" resultMap="BaseResultMap">
 
+  select * from neuedu_product where `name` like #{name} LIMIT #{pageNum},#{size}
+</select>
+  <select id="sousuoAll" parameterType="map" resultMap="BaseResultMap">
+
+    select * from neuedu_product where `name` like #{name}
+  </select>
 </mapper>

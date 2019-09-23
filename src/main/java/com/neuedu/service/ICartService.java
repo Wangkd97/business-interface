@@ -1,6 +1,7 @@
 package com.neuedu.service;
 
 import com.neuedu.common.ServerResponse;
+import com.neuedu.pojo.Cart;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,8 +16,9 @@ public interface ICartService {
     public ServerResponse deleteCartProductList(Integer userId, String productIds);
 
     //选中某个商品
-    public ServerResponse checkCartProduct(Integer userId, Integer productId, Integer check);
-
+    public ServerResponse checkCartProduct(Integer userId, Integer productId, Integer flag);
     //取消选中某个商品
-    //public ServerResponse notCheckCartProduct(Integer userId, Integer productId);
+    public ServerResponse notCheckCartProduct(Integer userId, Integer productId,Integer flag);
+    public ServerResponse alterNum(Cart cart);
+    public ServerResponse deletePro(Cart cart);
 }

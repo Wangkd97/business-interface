@@ -774,7 +774,7 @@ public class OrderServiceImpl implements IOrderservice {
                     .setUndiscountableAmount(undiscountableAmount).setSellerId(sellerId).setBody(body)
                     .setOperatorId(operatorId).setStoreId(storeId).setExtendParams(extendParams)
                     .setTimeoutExpress(timeoutExpress)
-                    .setNotifyUrl("http://9i9kiz.natappfree.cc/portal/order/alipayCallBack")//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
+                    .setNotifyUrl("http://td4jyx.natappfree.cc/portal/order/alipayCallBack")//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
                     .setGoodsDetailList(goodsDetailList);
 
             AlipayF2FPrecreateResult result = tradeService.tradePrecreate(builder);

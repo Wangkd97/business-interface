@@ -90,4 +90,10 @@ public interface ProductMapper {
                                     @Param("size") Integer size);
     List <ProductListViewObject> getHotProducts(@Param("start") Integer start,
                                   @Param("size") Integer size);
+    List<Product> sousuo(@Param("name") String name,
+                         @Param("pageNum") Integer pageNum,
+                         @Param("size") Integer size);
+    List<Product>sousuoAll(@Param("name") String name,
+                           @Param("pageNum") Integer pageNum,
+                           @Param("size") Integer size);
 }

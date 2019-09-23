@@ -61,6 +61,12 @@ public class S_portalProductController {
         return  ServerResponse.createServerResponseBySucess(list);
     }
 
+    @RequestMapping("sousuo")
+    public ServerResponse sousuo(@RequestParam(value = "productName") String productName,
+                                 @RequestParam(value = "pageNum",required = false,defaultValue = "1") Integer pageNum,
+                                 @RequestParam(value = "size",required = false,defaultValue = "10") Integer size){
+        return iProductService.sousuo(productName,pageNum,size);
+    }
 
 
 

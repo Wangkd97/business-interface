@@ -37,8 +37,7 @@ public interface IProductService {
 
 
 
-
-
+    public ServerResponse sousuo(String name,Integer pageNum,Integer size);
 
 
 

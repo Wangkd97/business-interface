@@ -80,7 +80,13 @@ public class CartServiceImpl implements ICartService {
                     }
                     cartproductViewObject.setQuantity(limitproductCount);
                     //设置cartproductViewObject的总价格,也就是说购物项的总价格，也就是一行的总价格
-                    cartproductViewObject.setProductTotalPrice(BigDecimalUtils.mul(product.getPrice().doubleValue(),cartproductViewObject.getQuantity()));
+
+                    if (cartproductViewObject.getProductChecked()==1){
+                        cartproductViewObject.setProductTotalPrice(BigDecimalUtils.mul(product.getPrice().doubleValue(),cartproductViewObject.getQuantity()));
+                    }else{
+                        cartproductViewObject.setProductTotalPrice(BigDecimalUtils.mul(0,cartproductViewObject.getQuantity()));
+                    }
+
                 }
 
                 //计算cartViewObject的总价格，也就是整个购物车总价格
@@ -184,18 +190,62 @@ public class CartServiceImpl implements ICartService {
 
     //Springboot 购物车中选中某个商品
     @Override
-    public ServerResponse checkCartProduct(Integer userId, Integer productId, Integer check) {
+    public ServerResponse checkCartProduct(Integer userId, Integer productId, Integer flag) {
         //参数非空校验
         /*if(productId==null){
             return ServerResponse.createServerResponseByFail("参数为空");
         }*/
         //dao
-        int rows=cartMapper.makeCheckedProduct(userId,productId,check);
+        int rows=cartMapper.makeCheckedProduct(userId,productId,flag);
         //返回结果
+
         if(rows==0){
             return ServerResponse.createServerResponseByFail("选中状态修改失败");
         }
-        return ServerResponse.createServerResponseBySucces("选中状态修改成功");
+        CartViewObject cartViewObject=cartToVO(userId);
+        if(cartViewObject==null){
+            return ServerResponse.createServerResponseBySucces("您还没有购物车信息");
+        }
+        return ServerResponse.createServerResponseBySucces(null,cartViewObject);
+
+    }
+
+    @Override
+    public ServerResponse notCheckCartProduct(Integer userId, Integer productId,Integer flag) {
+
+
+
+
+
+        return null;
+    }
+
+    @Override
+    public ServerResponse alterNum(Cart cart) {
+        int i = cartMapper.alterNum(cart);
+        if (i>0){
+            CartViewObject cartViewObject=cartToVO(cart.getUserId());
+            if(cartViewObject==null){
+                return ServerResponse.createServerResponseBySucces("您还没有购物车信息");
+            }
+            return ServerResponse.createServerResponseBySucces(null,cartViewObject);
+        }
+        return ServerResponse.createServerResponseByFail("查询失败");
+    }
+
+    @Override
+    public ServerResponse deletePro(Cart cart) {
+
+        int i=cartMapper.deletePro(cart);
+        if(i==0){
+            return ServerResponse.createServerResponseByFail("删除失败");
+        }
+        CartViewObject cartViewObject=cartToVO(cart.getUserId());
+        if(cartViewObject==null){
+            return ServerResponse.createServerResponseBySucces("您还没有购物车信息");
+        }
+        return ServerResponse.createServerResponseBySucces(null,cartViewObject);
+
     }
 
     /*@Override
